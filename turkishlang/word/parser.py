@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 from .suffixes import *
 from ..alphabet import *
 
@@ -70,6 +72,13 @@ class Parser:
                     elif s.name == CAN.name:
                         if self.stem[0] == "y":
                             self.suffixes.append(Suffix("COMBINATIVE_LETTER", None, (self.stem[0],), self.stem[0]))
+                            self.stem = self.stem[1:len(self.stem)]
+
+                    elif s.name == NEGATION.name:
+                        if self.stem[0] in ("a", "e"):
+                            a = CAN
+                            a.used = self.stem[0]
+                            self.suffixes.append(CAN)
                             self.stem = self.stem[1:len(self.stem)]
 
             i -= 1

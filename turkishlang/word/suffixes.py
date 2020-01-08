@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 class Suffix:
     def __init__(self, name, form, sorts, used=None):
         self.name =  name
