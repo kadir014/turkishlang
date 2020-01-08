@@ -45,11 +45,18 @@ class Parser:
                         self.suffixes.append(Suffix("COMBINATIVE_LETTER", None, (self.stem[0],), self.stem[0]))
                         self.stem = self.stem[1:len(self.stem)]
 
-                    if s.name == PRESENT_PERFECT.name and self.stem[0] in VOWELS:
-                        self.suffixes.append(Suffix("COMBINATIVE_LETTER", None, (self.stem[0],), self.stem[0]))
-                        self.stem = self.stem[1:len(self.stem)]
+                    elif s.name == PRESENT_PERFECT.name:
+                        if s.used == "z":
+                            a = NEGATION
+                            a.used = self.stem[:1]
+                            self.suffixes.append(a)
+                            #self.stem = self.stem[1:len(self.stem)]
 
-                    if s.name == SINGULAR1.name:
+                        elif self.stem[0] in VOWELS:
+                            self.suffixes.append(Suffix("COMBINATIVE_LETTER", None, (self.stem[0],), self.stem[0]))
+                            self.stem = self.stem[1:len(self.stem)]
+
+                    elif s.name == SINGULAR1.name:
                         if self.stem[0] == "y":
                             self.suffixes.append(Suffix("COMBINATIVE_LETTER", None, (self.stem[0],), self.stem[0]))
                             self.stem = self.stem[1:len(self.stem)]
@@ -58,6 +65,11 @@ class Parser:
                             a = PAST_SEEN
                             a.used = "d"
                             self.suffixes.append(a)
+                            self.stem = self.stem[1:len(self.stem)]
+
+                    elif s.name == CAN.name:
+                        if self.stem[0] == "y":
+                            self.suffixes.append(Suffix("COMBINATIVE_LETTER", None, (self.stem[0],), self.stem[0]))
                             self.stem = self.stem[1:len(self.stem)]
 
             i -= 1
